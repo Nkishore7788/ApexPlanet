@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Professional Layout with To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #212529;
+            padding-top: 60px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            color: #212529;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #0056b3;
+        }
+
+        nav a {
+            color: #495057;
+            margin-left: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #0056b3;
+        }
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 2.5fr;
+            gap: 40px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+        .sidebar {
+            background-color: #e9ecef;
+            color: #343a40;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar h2 {
+            color: #0056b3;
+            margin-top: 0;
+            font-size: 1.5em;
+            font-weight: 500;
+            border-bottom: 1px solid #ced4da;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar p {
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        form h3 {
+            text-align: center;
+            color: #212529;
+            margin-bottom: 30px;
+            font-size: 1.7em;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        form h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #0056b3;
+            border-radius: 2px;
+        }
+
+
+        label {
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+            color: #343a40;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="file"] {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus,
+        input[type="file"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        input[type="file"] {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+
+        .gender-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .gender-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .gender-group label {
+            font-weight: normal;
+            margin-bottom: 0;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .button {
+            padding: 12px 25px;
+            border-radius: 5px;
+            color: #ffffff;
+            background-color: #28a745;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #218838;
+            transform: translateY(-1px);
+        }
+
+        .button:active {
+            background-color: #1e7e34;
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            body {
+                padding-top: 55px;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 20px;
+            }
+
+            .logo {
+                margin-bottom: 10px;
+            }
+
+            nav {
+                margin-top: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 10px;
+                display: inline-block;
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            .form-container, .sidebar {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px 15px;
+            }
+            nav a {
+                margin: 0 8px;
+                font-size: 0.9em;
+            }
+            .layout {
+                padding: 15px;
+            }
+            .form-container {
+                padding: 20px 15px;
+            }
+            form h3 {
+                font-size: 1.5em;
+                margin-bottom: 25px;
+            }
+            .button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        /* --- To-Do List Styles --- */
+        .todo-section {
+            background-color: #ffffff; /* White background */
+            padding: 35px; /* Increased padding */
+            border-radius: 8px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+            margin: 30px auto; /* Increased margin */
+            max-width: 1200px;
+        }
+
+        .todo-section h3 {
+            text-align: center;
+            color: #212529;
+            margin-bottom: 30px;
+            font-size: 1.7em;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .todo-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #0056b3;
+            border-radius: 2px;
+        }
+
+
+        .todo-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .todo-input input {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .todo-input input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+
+        .todo-input button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .todo-input button:hover {
+            background-color: #218838;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-list li {
+            padding: 15px;
+            background-color: #e9ecef;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #007bff;
+            word-break: break-word;
+            font-size: 1rem;
+        }
+
+        .task-list button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9em;
+            margin-left: 15px;
+            flex-shrink: 0;
+        }
+
+        .task-list button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">MySite</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <h2>Information Panel</h2>
+            <p>This area provides supplementary details or navigation links. It's designed to complement the main content without distracting from it.</p>
+            <p>Keep it concise and focused to maintain a professional look.</p>
+        </aside>
+
+        <div class="form-container">
+            <form onsubmit="return validForm()">
+                <h3>User Registration</h3>
+
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" placeholder="Enter your full name" required />
+
+                <label for="number">Phone Number:</label>
+                <input type="number" id="number" placeholder="e.g., 1234567890" required />
+
+                <label for="mail">Email Address:</label>
+                <input type="email" id="mail" placeholder="Enter your email" />
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Create a password" required />
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" />
+
+                <label>Gender:</label>
+                <div class="gender-group">
+                    <input type="radio" name="Gender" value="male" id="male" />
+                    <label for="male">Male</label>
+                    <input type="radio" name="Gender" value="female" id="female" />
+                    <label for="female">Female</label>
+                    <input type="radio" name="Gender" value="other" id="other" />
+                    <label for="other">Other</label>
+                </div>
+
+                <label for="file">Upload Profile Picture:</label>
+                <input type="file" id="file" required />
+
+                <input class="button" type="submit" value="Register" />
+            </form>
+        </div>
+    </div>
+
+    <section class="todo-section">
+        <h3>📝 Daily Tasks</h3>
+        <div class="todo-input">
+            <input type="text" id="taskInput" placeholder="Add a new task..." />
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="taskList" class="task-list"></ul>
+    </section>
+
+    <script>
+        function validForm() {
+            const Name = document.getElementById("name").value.trim();
+            const PHNO = document.getElementById("number").value.trim();
+            const Email = document.getElementById("mail").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const fileInput = document.getElementById("file");
+
+
+            const namepattern = /^[A-Za-z\s-]{2,}$/;
+            const numberpattern = /^[0-9]{10}$/;
+            const mailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const passwordpattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=])[A-Za-z0-9@#$%^&+=]{7,}$/;
+
+
+            if (!namepattern.test(Name)) {
+                alert("Invalid Name. Please enter at least 2 letters and only use letters, spaces, or hyphens.");
+                return false;
+            }
+
+            if (!numberpattern.test(PHNO)) {
+                alert("Invalid Phone number. Please enter exactly 10 digits.");
+                return false;
+            }
+            if (Email !== "" && !mailpattern.test(Email)) {
+            alert("Invalid email format.");
+                return false;
+            }
+
+            if (!passwordpattern.test(password)) {
+                alert("Invalid password. Must be at least 7 characters long and include at least one letter, one number, and one special character (@#$%^&+=).");
+                return false;
+            }
+            if (fileInput.required && fileInput.files.length === 0) {
+                alert("Please upload a file.");
+                return false;
+            }
+
+
+            alert("Form Submitted Successfully!");
+            return false;
+        }
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskText = taskInput.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task.");
+                return;
+            }
+
+            const li = document.createElement("li");
+            li.appendChild(document.createTextNode(taskText));
+
+            const delButton = document.createElement("button");
+            delButton.textContent = "❌";
+            delButton.title = "Delete Task";
+            delButton.onclick = function () {
+                li.remove();
+            };
+
+            li.appendChild(delButton);
+            document.getElementById("taskList").appendChild(li);
+            taskInput.value = "";
+            taskInput.focus();
+        }
+        document.getElementById("taskInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                addTask();
+            }
+        });
+    </script>
+</body>
+</html>
